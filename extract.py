@@ -2,9 +2,10 @@ import numpy as np
 
 def read_knapsack(filepath):
     items = np.loadtxt(filepath, delimiter=' ')
-    weights = items[:, 0]
-    values = items[:, 1]
-    return weights, values, capacity
+    values = items[1:, 0]
+    weights = items[1:, 1]
+    capacity = items[0, 1]
+    return values, weights, capacity
 
 def read_optimal(filepath):
     optimal = np.loadtxt(filepath)
