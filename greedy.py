@@ -40,7 +40,6 @@ def value_greedy(vals, weigh, cap: int, opt: int):
     Returns
     -------
     knap_sol : array-like. The one-hot coded solution of the chosen items.
-    in_sack_v: integer. Sum of the values arranged in the knapsack.
     """
 
     ### VALUE-WISE GREEDY ####
@@ -82,7 +81,6 @@ def weight_greedy(vals, weigh, cap: int, opt: int):
     Returns
     -------
     knap_sol : array-like. The one-hot coded solution of the chosen items.
-    in_sack_v: integer. Sum of the values arranged in the knapsack.
     """
     ### WEIGHT-WISE GREEDY ####
     in_sack_w, in_sack_v = 0, 0 # Empty weight and value counters
@@ -122,7 +120,6 @@ def fractional_greedy(vals, weigh, cap: int, opt: int):
     Returns
     -------
     knap_sol : array-like. The one-hot coded solution of the chosen items.
-    in_sack_v: integer. Sum of the values arranged in the knapsack.
     """
     ### RATIO-WISE GREEDY ####
     in_sack_w, in_sack_v = 0, 0  # Empty weight and value counters
