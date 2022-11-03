@@ -108,6 +108,46 @@ def weight_greedy(vals, weigh, cap: int, opt: int):
     print()
     return knap_sol
 
+def fractional_greedy(vals, weigh, cap: int, opt: int):
+    """Implementation of a weight-oriented greedy algorithm to solve
+    the 0/1 knapsack problem.
+    Parameters
+    ----------
+    vals : array-like of shape (n_samples,). List of the monetary value
+            of the items to be arranged in the knapsack.
+    weigh : array-like of shape (n_samples,). list of corresponding weights
+            of the items to be arranged in the knapsack.
+    cap:    integer. Capacity of the knapsack.
+    opt:    integer. Optimal value of the items to be arranged.
+    Returns
+    -------
+    knap_sol : array-like. The one-hot coded solution of the chosen items.
+    in_sack_v: integer. Sum of the values arranged in the knapsack.
+    """
+    ### RATIO-WISE GREEDY ####
+    in_sack_w, in_sack_v = 0, 0  # Empty weight and value counters
+    knap_sol = np.empty(len(vals))  # Empty solution vector
+    val_wei_ratio = vals/weigh  # Calculates value-weight ratios of each item
+    sorted_items = np.flipud(b_sort(val_wei_ratio, weights))  # Sorts the items ratio-wise, descending order.
+    for i in range(len(sorted_items)):  # Iterates through every item
+        if in_sack_w+sorted_items[i,1] <= cap:  # Check if the weight limit can be reached in this iter.
+            in_sack_w += sorted_items[i,1]  # Sums weight
+            knap_sol[int(sorted_items[i,2])] = 1  # Found a value for the solution. Added.
+        else:
+            knap_sol[int(sorted_items[i,2])] = 0  # Weight limit reached. Nothing changed
+    # wasted_value = opt - in_sack_v
+
+    #### PRINTING SOLUTIONS ###
+    print("FRACTIONAL GREEDY ALGORITHM RESULTS: ")
+    # print("Was able to fit %d€ worth of stuff in the knapsack. "
+    #       "The optimal value was %d€"%(in_sack_v, opt))
+    print("Was able to fit %d kg. The knapsack had a capacity of "
+          "%d kg"%(in_sack_w, capacity))
+    # print("Unprofited value: %d€"%(wasted_value))
+    print("One-hot coded solution: "+str(knap_sol))
+    print()
+    return knap_sol
+
 # Declaring item and capacity paths
 items_path = 'low-dimensional/'+'f1_l-d_kp_10_269'
 capacity_path = 'low-dimensional-optimum/'+'f1_l-d_kp_10_269'
@@ -119,3 +159,4 @@ optimal = read_optimal(capacity_path)
 # Calling the value greedy
 knap = value_greedy(values, weights, capacity, optimal)
 knap2 = weight_greedy(values, weights, capacity, optimal)
+ratioknap = fractional_greedy(values, weights, capacity, optimal)
