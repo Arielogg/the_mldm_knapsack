@@ -12,5 +12,6 @@ Hey guys, I'll add the experiments that we each need to run in our experiments a
 3. Relation between the execution time and the accuracy.
     > Calculate it as accuracy/time.
 
-### Please upload a file called 'youralgo'.txt with the same name as the algorithm that you're measuring with the experimental results. 
+### Please upload a file called 'youralgo'.txt with the same name as the algorithm that you're measuring with the experimental results.
+### Also, please try to put the time and accuracy results of each experiment (for each file) in an excel or a csv file. 
 ### Please use the dataset found in http://artemisa.unicauca.edu.co/~johnyortega/instances_01_KP/
