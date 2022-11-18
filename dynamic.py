@@ -3,10 +3,7 @@ MOUDJAHED Mohamed
 Capacité du sac = W
 '''
 import numpy as np
-
-Lw = [3, 4, 7]
-Lv = [1, 2, 10]
-W = 10
+from extract import read_knapsack, read_optimal
 
 '''
 Programmation dynamique
@@ -21,15 +18,17 @@ Explication brève :
         -> Il s'agit de la valeur à la capacité maximale déjà calculée + la valeur à ajouter
  '''
 
-def Dynamic(W) :
+def Dynamic(Lv, Lw, W, optimal) :
     n = len(Lv)
+    W = int(W)
     M = np.zeros((n+1, W+1))
-    for i in range(1, len(Lv)+1) :
+    for i in range(1, n+1) :
         for w in range(1, W+1):
             if Lw[i-1] > w :
                 M[i, w] = M[i-1, w]
             else :
                 M[i, w] = max(M[i-1, w], Lv[i-1] + M[i-1, w-Lw[i-1]])
+    print("The best value is : ",M[n, W],"Value optimal : ",optimal, "précision :",M[n,W]/optimal*100,"%")
     return M[n, W]
 
 '''
@@ -37,38 +36,41 @@ Version Top Down plus optimisée réduisant le nombre d'appel, en calculant les 
 seulement si nécessaire.
 '''
 
-def m(i, j, M) :
+def m(i, j, M, Lw, Lv) :
     if i == 0 or j <= 0 :        
         M[i, j] = 0   
         return 0
 
     if M[i-1, j] == -1 :#m[i-1, j] n'a pas été calculé, il faut appeler la fonction m          
-        M[i-1, j] = m(i-1, j, M)
+        M[i-1, j] = m(i-1, j, M, Lw, Lv)
 
     if Lw[i-1] > j :   #l'article ne peut pas tenir dans le sac                          
         M[i, j] = M[i-1, j]   
     else :
         if M[i-1, j-Lw[i-1]] == -1 : #m[i-1,Lw[i]] n'a pas été calculé, il faut appeler la fonction m          
-            M[i-1, j-Lw[i-1]] = m (i-1 , j-Lw[i-1], M)    
+            M[i-1, j-Lw[i-1]] = m (i-1 , j-Lw[i-1], M, Lw, Lv)    
         M[i, j] = max(M[i-1, j], M[i-1, j-Lw[i-1]] + Lv[i-1]) 
     return M[i, j]
 
-def TopDown(W) :
+def TopDown(Lv, Lw, W, optimal) :
     n = len(Lv)
+    W = int(W)
     M = np.ones((n+1, W+1)).dot(-1)
-    m(n, W, M)
+    m(n, W, M, Lw, Lv)
+    print("The best value is : ",M[n, W],"Value optimal : ",optimal, "précision :",M[n,W]/optimal*100,"%")
     return (M[n, W])
 
+# Declaring item and capacity paths
+items_path = 'low-dimensional/'+'f1_l-d_kp_10_269'
+capacity_path = 'low-dimensional-optimum/'+'f1_l-d_kp_10_269'
 
-'''
-TEST
-'''
-print("Test matrice dynamique :\n")
-print(Dynamic(10))
-print("\n")
-print("Test matrice dynamique TopDown :\n")
-print(TopDown(10))
+# Reading the values
+values, weights, capacity = read_knapsack(items_path)
+optimal = read_optimal(capacity_path)
 
+# Calling the value greedy
+values = list(map(int, values))
+weights = list(map(int, weights))
 
-
-
+knap = Dynamic(values, weights, capacity, optimal)
+knap2 = TopDown(values, weights, capacity, optimal)

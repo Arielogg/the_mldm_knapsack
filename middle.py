@@ -1,8 +1,5 @@
 from itertools import combinations
-
-Lw = [3, 4, 7]
-Lv = [1, 2, 10]
-W = 10
+from extract import read_knapsack, read_optimal
 
 def comb(a) :
     combinaison = sum([list(map(list, combinations(a, i))) for i in range(len(a) + 1)], [])
@@ -14,7 +11,7 @@ def comb(a) :
     #et une liste de la somme de chaque combinaison
     return combinaison,sumvalues
 
-def cal() :
+def Middle(Lv, Lw, W, optimal) :
     #On divise notre ensemble d'éléments en deux ensembles d'éléments A et B
     ALw,ALv = [Lw[:2], Lv[:2]]
     BLw,BLv = [Lw[2:], Lv[2:]]
@@ -36,7 +33,20 @@ def cal() :
             if (Bv+Av) > max and (Bw+Aw) <= W :
                 max = Bv+Av
 
+    print("The best value is : ",max,"Value optimal : ",optimal, "précision :",max/optimal*100,"%")
     return max
 
+# Declaring item and capacity paths
+items_path = 'low-dimensional/'+'f1_l-d_kp_10_269'
+capacity_path = 'low-dimensional-optimum/'+'f1_l-d_kp_10_269'
 
-print(cal())
+# Reading the values
+values, weights, capacity = read_knapsack(items_path)
+optimal = read_optimal(capacity_path)
+
+# Calling the value greedy
+values = list(map(int, values))
+weights = list(map(int, weights))
+
+knap = Middle(values, weights, capacity, optimal)
+
