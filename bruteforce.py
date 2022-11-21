@@ -1,9 +1,12 @@
-with open("f1_l-d_kp_10_269","r") as Data:
+import time
+
+with open("../AdvancedAlgorithm/knapPI_1_2000_1000_1", "r") as Data:
 
     x = 0
     n = 0
     values = []
     weight = []
+
     for i in Data:
         x+=1
         j = i.replace("\n","")
@@ -41,6 +44,7 @@ with open("f1_l-d_kp_10_269","r") as Data:
         tab = []  #we will stock the binary table
         bestChoice = []
         bestval=0
+        bestweight= 0
         a=[]
         totval=0
         for i in range(n):
@@ -59,6 +63,15 @@ with open("f1_l-d_kp_10_269","r") as Data:
                 if(tempweight<=capacity and tempval>bestval):
                     bestChoice=a
                     bestval=tempval
-        print(val(bestChoice))
-        return bestChoice
+                    bestweight=tempweight
+        print("val : " + str(val(bestChoice)))
+        print("weight : " + str(bestweight))
+        print("solution vect : "+str(bestChoice))
+
+        return bestChoice,bestweight,bestval
+
+
+    tic = time.time()
     brutforce(values,weight,capacity)
+    toc=time.time()-tic
+    print(toc)
