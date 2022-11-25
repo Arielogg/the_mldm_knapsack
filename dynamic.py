@@ -1,21 +1,21 @@
 '''
 MOUDJAHED Mohamed
-Capacité du sac = W
+W = the capacity of the bag
 '''
 import numpy as np
 from extract import read_knapsack, read_optimal
 
 '''
-Programmation dynamique
-algorithme vu en cours
 
-Explication brève :
-- Les valeurs de la matrice sont initialisées à 0
-- Pour remplir une valeur dans la matrice il y'a deux situations :
-  i) Le poid Lw[i] > w : On ne peut rien ajouter de plus, la valeur du dessus est reprise (M[i-1, w])
-  ii) Sinon : La valeur sera le maximum entre celle du dessus (M[i-1, w]) et M[i-1, w - Lw[i]] + Lv[i]
-      Pourquoi "M[i-1, w - Lw[i]] + Lv[i]" ? 
-        -> Il s'agit de la valeur à la capacité maximale déjà calculée + la valeur à ajouter
+Dynamic program algorithm that we have seen in class
+
+Brief explanation :
+- The values of the matrix are initialized to 0
+- There are two ways to fill the matrix with a value :
+  i) If the weight Lw[i] >w : We can't add anything else, we take back the upper value (M[i-1, w])
+  ii) Else : The chosen value wil be the maximum between the upper one M[i-1, w] et M[i-1, w - Lw[i]] + Lv[i]
+      Why "M[i-1, w - Lw[i]] + Lv[i]" ? 
+          -> It is the value with the highest capacity that has been calculated + the value we add
  '''
 
 def Dynamic(Lv, Lw, W, optimal) :
@@ -32,8 +32,7 @@ def Dynamic(Lv, Lw, W, optimal) :
     return M[n, W]
 
 '''
-Version Top Down plus optimisée réduisant le nombre d'appel, en calculant les poids 
-seulement si nécessaire.
+Top Down version - this version is more optimized and reduces the number of call, by calculating only if necessary
 '''
 
 def m(i, j, M, Lw, Lv) :
