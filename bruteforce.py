@@ -83,11 +83,11 @@ def bruteforce(values, weight, capacity):
 
 # Declaring item and capacity paths
 items_path = 'low-dimensional/' + 'f1_l-d_kp_10_269'
-capacity_path = 'low-dimensional-optimum/' + 'f1_l-d_kp_10_269'
+optimal_path = 'low-dimensional-optimum/' + 'f1_l-d_kp_10_269'
 
 # Reading the values
 values, weights, capacity = read_knapsack(items_path)
-optimal = read_optimal(capacity_path)
+optimal = read_optimal(optimal_path)
 
 tic = time.time()
 solution, bestweight, bestval = bruteforce(values, weights, capacity)
