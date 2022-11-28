@@ -4,9 +4,7 @@
 ## -------------------------
 
 # Modify this line of code to choose the data file
-
 with open("instances_01_KP/low-dimensional/f7_l-d_kp_7_50","r") as Data:
-#with open("instances_01_KP/large_scale/knapPI_1_10000_1000_1","r") as Data:
 
     # Initialization
     
