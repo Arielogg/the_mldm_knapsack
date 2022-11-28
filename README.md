@@ -1,17 +1,24 @@
-Hey guys, I'll add the experiments that we each need to run in our experiments and the type of results I expect us to have:
+# TODO: (J-9 !!!)
+### EXPERIMENTS FOR THE SINGLE 0/1 KP PROBLEM (Ariel):
 
-## EXPERIMENTS TO RUN ON THE DATASET:
-
-1. Average time complexity of the algorithm (execution time and theoretical time complexity of your algorithm O(.)).
-  I recommend you to use the time() function for getting the execution time of each problem of the dataset and find the average of all of them. 
+1. Average time complexity of the algorithm
+    >Execution time and theoretical time complexity of each algorithm O(.).
   
 2. Average accuracy with respect to the optimal weight. I recommend you to calculate this as:
-     > Total value put into the knapsack by your algorithm/optimal value of the knapsack
-     > found in the /low-dimensional-optimum folder).
+    > Total value put into the knapsack by your algorithm/optimal value of the knapsack. 
+   > Found in the /low-dimensional-optimum folder).
      
 3. Relation between the execution time and the accuracy.
     > Calculate it as accuracy/time.
 
-### Please upload a file called 'youralgo'.txt with the same name as the algorithm that you're measuring with the experimental results.
-### Also, please try to put the time and accuracy results of each experiment (for each file) in an excel or a csv file. 
-### Please use the dataset found in http://artemisa.unicauca.edu.co/~johnyortega/instances_01_KP/
+### EXPERIMENTS FOR THE MULTIPLE KNAPSACK PROBLEM (Franck):
+
+1. Average time complexity of the simplest algorithms (Greedy, Randomized).
+2. Find accuracy of said algos for said problem.
+
+### ADDITIONAL ALGOS (Mohammed, Josh):
+
+### REPORT, PRESENTATION (Ariel, Thomas):
+
+#### Dataset for the 0/1 knapsack problem: http://artemisa.unicauca.edu.co/~johnyortega/instances_01_KP/
+#### Dataset for the multiple knapsack problem: https://people.sc.fsu.edu/~jburkardt/datasets/knapsack_multiple/knapsack_multiple.html
