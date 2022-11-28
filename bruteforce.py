@@ -1,4 +1,5 @@
 import time
+import numpy as np
 from extract import read_knapsack, read_optimal
 
 def binaire(number):
@@ -58,11 +59,10 @@ def bruteforce(values, weight, capacity):
     bestweight : int. Total weight of selected items.
     bestval : int. Total value of selected items.
     """
-    bestChoice, a = [], []
+    bestChoice = []
     bestval, bestweight= 0, 0
+    a = np.zeros(len(values))
 
-    for i in range(len(values)):
-        a.append(0)
     for i in range(0, pow(2, len(values))):  # for 1 to 2^n
         tab=binaire(i)  # for obtain the binary number of i
         tempval = 0  # will stock the value

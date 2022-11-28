@@ -29,34 +29,20 @@ def randomize(weight,values,capacity,iter=10000) :
 
     for tour in range(iter):
         ran = random.sample(range(len(values)), len(values))  # liste de nombre aléatoire de taille n,corresponds a indice du tableau
-        # creation des variables temporaire de poids,valeur
-        tempweight, tempvalue = 0, 0
-        # initialisation de notre liste a, servira de liste temporaire qui conservera la meilleur chemin
-        a = np.zeros(len(values))
+        tempweight, tempvalue = 0, 0  # creation des variables temporaire de poids,valeur
+        a = np.zeros(len(values))  # initialisation de notre liste a, servira de liste temporaire qui conservera la meilleur chemin
 
-        #boucle qui va parcourir tout les elem de ma liste ran
-        for i in range(0,len(values)-1) :
-            #j sera égale a l'indice renvoyer dans la liste de random
-            j=ran[i]
+        for i in range(0,len(values)-1):  #boucle qui va parcourir tout les elem de ma liste ran
+            j = ran[i]  #j sera égale a l'indice renvoyer dans la liste de random
             tempweight = tempweight + weight[j]
+
             if(tempweight<capacity) :
-                #on le met dans le sac
-                a[j]=1
-                #on ajoute la valeur de j
-                tempvalue=tempvalue+values[j]
-
-            else :
-                if(bestValue< tempvalue):
-                    #on soustrait le poids mis en trop et on l'attribue a notre poids final
-                    bestWeight = tempweight - weight[j]
-                    #on attribue la valeur finale
-                    bestValue = tempvalue
-                    #bestChoice deviens a
-                    bestChoice=a
-
-    # print("val : " + str(bestValue))
-    # print("weight : " + str(bestWeight))
-    # print("solution vect : " + str(bestChoice))
+                a[j] = 1  #on le met dans le sac
+                tempvalue = tempvalue+values[j]  #on ajoute la valeur de j
+            elif bestValue < tempvalue:
+                bestWeight = tempweight - weight[j]  #on soustrait le poids mis en trop et on l'attribue a notre poids final
+                bestValue = tempvalue  #on attribue la valeur finale
+                bestChoice = a  #bestChoice deviens a
     return bestChoice, bestWeight, bestValue
 
 
