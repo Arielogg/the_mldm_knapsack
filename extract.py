@@ -1,5 +1,11 @@
+'''
+GUERRA ADAMES Ariel
+Script containing TBD
+'''
+
 import numpy as np
 import fnmatch
+import problem_generator as pg
 import os
 
 def read_knapsack(filepath):

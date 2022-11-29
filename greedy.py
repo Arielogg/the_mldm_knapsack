@@ -1,6 +1,11 @@
+'''
+GUERRA ADAMES Ariel
+Script containing TBD
+'''
+
 import numpy as np
 from extract import read_knapsack, read_optimal
-
+import problem_generator as pg
 
 def b_sort(sorted_one, other_one):
     """Standard implementation of the bubble sort algorithm adapted to
@@ -26,7 +31,7 @@ def b_sort(sorted_one, other_one):
     return sorted_items
 
 
-def value_greedy(vals, weigh, cap: int, opt: int):
+def value_greedy(vals, weigh, cap:int, opt:int = 0):
     """Implementation of a value-oriented greedy algorithm to solve
     the 0/1 knapsack problem.
     Parameters
@@ -67,7 +72,7 @@ def value_greedy(vals, weigh, cap: int, opt: int):
     return knap_sol
 
 
-def weight_greedy(vals, weigh, cap: int, opt: int):
+def weight_greedy(vals, weigh, cap:int, opt:int = 0):
     """Implementation of a weight-oriented greedy algorithm to solve
     the 0/1 knapsack problem.
     Parameters
@@ -106,7 +111,7 @@ def weight_greedy(vals, weigh, cap: int, opt: int):
     print()
     return knap_sol
 
-def fractional_greedy(vals, weigh, cap: int, opt: int):
+def fractional_greedy(vals, weigh, cap:int, opt:int = 0):
     """Implementation of a weight-oriented greedy algorithm to solve
     the 0/1 knapsack problem.
     Parameters
