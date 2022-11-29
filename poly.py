@@ -40,7 +40,6 @@ def Poly(Sigma, Lv, Lw, W, optimal) :
 
     #On arrondit toutes les valeurs de v sur le multiple de  k juste au dessus
     Lv2 = [ceil(i/k) for i in Lv]
-    print (Lv2)
 
     #On applique l'approche dynamique avec notre nouvelle liste de valeur
     m(n, W, M, Lw, Lv2)
