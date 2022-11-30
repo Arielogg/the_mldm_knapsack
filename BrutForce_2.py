@@ -12,7 +12,7 @@ def sumcomb(a) :
     
     return sumvalues
 
-#retourne seulement une liste de toutes les combinaisons possible
+#retourne une liste de toutes les combinaisons possibles
 def comb(a) :
     combinaison = sum([list(map(list, combinations(a, i))) for i in range(len(a)+1)], [])
     
@@ -41,7 +41,7 @@ def BrutForce_MKP(Lv, Lw, W1, W2, optimal) :
     #combinaison des indices
     combobjet = comb(O)
     
-    #On récupère toutes les combinaisons possiblent
+    #On récupère toutes les combinaisons possibles
     #((sumweight1, sumweight2),(sumvalues1, sumvalues2))
     #En prenant bien en compte qu'on ne peut pas mettre un objet dans deux sacs
     #Puis on prend la meilleur combinaison possible
