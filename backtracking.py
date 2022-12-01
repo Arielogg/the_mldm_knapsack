@@ -23,11 +23,25 @@ def knapsack(mW, weights, values, n):
     else:
         return set2
     
+def accuracy(sol):
+    optimal = extract.read_optimal("low-dimensional-optimum/f2_l-d_kp_20_878")
+    acc = sol[0]/optimal * 100
+    return acc
+
+def onehot(sol, val, wt, W):
+    n = len(val)
+    onehot = [0]*n
+    for i in range(len(sol[1])):
+        onehot[sol[1][i]] = 1
+    return onehot
 
 def main():
-    val, wt, W = extract.read_knapsack("low-dimensional/f1_l-d_kp_10_269")
+    val, wt, W = extract.read_knapsack("low-dimensional/f2_l-d_kp_20_878")
     n = len(val)
-    print(knapsack(W, wt, val, n))
+    sol = knapsack(W, wt, val, n)
+    print("accuracy: ", accuracy(sol))
+    print(sol)
+    print("one-hot-coded solution: ", onehot(sol, val, wt, W))
     print("Total recursive steps: ", c)
 
 if __name__ == "__main__":
