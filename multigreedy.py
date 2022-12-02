@@ -144,7 +144,7 @@ def weight_greedy(vals, weigh, cap:int, opt:int = 0, opt2:int=0):
 
 def fractional_greedy(vals, weigh, cap:int, opt:int = 0,opt2:int=0):
     """Implementation of a weight-oriented greedy algorithm to solve
-    the 0/1 knapsack problem.
+    the multi knapsack problem.
     Parameters
     ----------
     vals : array-like of shape (n_samples,). List of the monetary value
@@ -153,6 +153,7 @@ def fractional_greedy(vals, weigh, cap:int, opt:int = 0,opt2:int=0):
             of the items to be arranged in the knapsack.
     cap:    integer. Capacity of the knapsack.
     opt:    integer. Optimal value of the items to be arranged.
+    opt2:   integer. Optimal value of the items to be arranged.
     Returns
     -------
     knap_sol : array-like. The one-hot coded solution of the chosen items.
@@ -171,11 +172,9 @@ def fractional_greedy(vals, weigh, cap:int, opt:int = 0,opt2:int=0):
             in_sack_v1 += values[index]  # Sums value
             knap_sol[int(sorted_items[i, 2])] = 1  # Found a value for the solution. Added.
         elif in_sack_w2 + sorted_items[i, 1] <= capacities[1]:
-            print(sorted_items[i, 1])
             in_sack_w2 += sorted_items[i, 1]
             index=sorted_items[i,2].astype(int)
             in_sack_v2 += values[index]
-            print(values[index])
             knap_sol2[int(sorted_items[i, 2])] = 1
         else:
             knap_sol[int(sorted_items[i, 2])] = 0  # Weight limit reached. Nothing changed
@@ -200,11 +199,8 @@ def fractional_greedy(vals, weigh, cap:int, opt:int = 0,opt2:int=0):
 
 # Declaring item and capacity paths
 items_path = 'multiple_knapsack/kp1'
-#capacity_path = 'low-dimensional-optimum/'+'f1_l-d_kp_10_269'
-
 # Reading the values
 capacities, values, weights, s_sack1, s_sack2, optimal1, optimal2 = read_multiknapsack(items_path)
-#optimal = read_optimal(capacity_path)
 
 # Calling the value greedy
 knap = value_greedy(values, weights, capacities, optimal1,optimal2)
