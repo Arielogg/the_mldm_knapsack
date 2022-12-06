@@ -1,11 +1,13 @@
 '''
 GUERRA ADAMES Ariel
-Script containing TBD
+Script containing algorithms necessary to perform
+greedy approaches.
 '''
 
 import numpy as np
+import time
+from leven import levenshtein
 from extract import read_knapsack, read_optimal
-import problem_generator as pg
 
 def b_sort(sorted_one, other_one):
     """Standard implementation of the bubble sort algorithm adapted to
@@ -31,7 +33,7 @@ def b_sort(sorted_one, other_one):
     return sorted_items
 
 
-def value_greedy(vals, weigh, cap:int, opt:int = 0):
+def value_greedy(vals, weigh, cap:int, opt:int = 1):
     """Implementation of a value-oriented greedy algorithm to solve
     the 0/1 knapsack problem.
     Parameters
@@ -65,14 +67,14 @@ def value_greedy(vals, weigh, cap:int, opt:int = 0):
     print("Was able to fit %d€ worth of stuff in the knapsack. "
           "The optimal value was %d€"%(in_sack_v, opt))
     print("Was able to fit %d kg. The knapsack had a capacity of "
-          "%d kg"%(in_sack_w, capacity))
+          "%d kg"%(in_sack_w, cap))
     print("Unprofited value: %d€"%(wasted_value))
     print("One-hot coded solution: "+str(knap_sol))
-    print()
-    return knap_sol
 
+    accuracy = in_sack_v/opt
+    return knap_sol, in_sack_v, accuracy
 
-def weight_greedy(vals, weigh, cap:int, opt:int = 0):
+def weight_greedy(vals, weigh, cap:int, opt:int = 1):
     """Implementation of a weight-oriented greedy algorithm to solve
     the 0/1 knapsack problem.
     Parameters
@@ -105,13 +107,13 @@ def weight_greedy(vals, weigh, cap:int, opt:int = 0):
     print("Was able to fit %d€ worth of stuff in the knapsack. "
           "The optimal value was %d€"%(in_sack_v, opt))
     print("Was able to fit %d kg. The knapsack had a capacity of "
-          "%d kg"%(in_sack_w, capacity))
+          "%d kg"%(in_sack_w, cap))
     print("Unprofited value: %d€"%(wasted_value))
     print("One-hot coded solution: "+str(knap_sol))
-    print()
-    return knap_sol
+    accuracy = in_sack_v/opt
+    return knap_sol, in_sack_v, accuracy
 
-def fractional_greedy(vals, weigh, cap:int, opt:int = 0):
+def fractional_greedy(vals, weigh, cap:int, opt:int = 1):
     """Implementation of a weight-oriented greedy algorithm to solve
     the 0/1 knapsack problem.
     Parameters
@@ -129,11 +131,13 @@ def fractional_greedy(vals, weigh, cap:int, opt:int = 0):
     ### RATIO-WISE GREEDY ####
     in_sack_w, in_sack_v = 0, 0  # Empty weight and value counters
     knap_sol = np.empty(len(vals))  # Empty solution vector
-    val_wei_ratio = vals/weigh  # Calculates value-weight ratios of each item
-    sorted_items = np.flipud(b_sort(val_wei_ratio, weights))  # Sorts the items ratio-wise, descending order.
+    val_wei_ratio = np.asarray(vals)/np.asarray(weigh)  # Calculates value-weight ratios of each item
+    sorted_items = np.flipud(b_sort(val_wei_ratio, weigh))  # Sorts the items ratio-wise, descending order.
     for i in range(len(sorted_items)):  # Iterates through every item
         if in_sack_w+sorted_items[i,1] <= cap:  # Check if the weight limit can be reached in this iter.
             in_sack_w += sorted_items[i,1]  # Sums weight
+            index = sorted_items[i,2].astype(int)
+            in_sack_v += vals[index]  # Sums value
             knap_sol[int(sorted_items[i,2])] = 1  # Found a value for the solution. Added.
         else:
             knap_sol[int(sorted_items[i,2])] = 0  # Weight limit reached. Nothing changed
@@ -141,24 +145,81 @@ def fractional_greedy(vals, weigh, cap:int, opt:int = 0):
 
     #### PRINTING SOLUTIONS ###
     print("FRACTIONAL GREEDY ALGORITHM RESULTS: ")
-    # print("Was able to fit %d€ worth of stuff in the knapsack. "
-    #       "The optimal value was %d€"%(in_sack_v, opt))
+    print("Was able to fit %d€ worth of stuff in the knapsack. "
+          "The optimal value was %d€"%(in_sack_v, opt))
     print("Was able to fit %d kg. The knapsack had a capacity of "
-          "%d kg"%(in_sack_w, capacity))
-    # print("Unprofited value: %d€"%(wasted_value))
+          "%d kg"%(in_sack_w, cap))
     print("One-hot coded solution: "+str(knap_sol))
-    print()
-    return knap_sol
+    accuracy = in_sack_v/opt
+    return knap_sol, in_sack_v, accuracy
 
-# Declaring item and capacity paths
-items_path = 'low-dimensional/'+'f1_l-d_kp_10_269'
-capacity_path = 'low-dimensional-optimum/'+'f1_l-d_kp_10_269'
+#### Usage example (UNCOMMENT)
+
+#  Declaring item and capacity paths
+filename = 'f10_l-d_kp_20_879'
+items_path = 'low-dimensional/'+ str(filename)
+optimal_path = 'low-dimensional-optimum/' + str(filename)
+solution_path = 'low-dimensional-solutions/' + str(filename)
 
 # Reading the values
 values, weights, capacity = read_knapsack(items_path)
-optimal = read_optimal(capacity_path)
+optimal = read_optimal(optimal_path)
+solution = np.loadtxt(solution_path, delimiter=',')
 
-# Calling the value greedy
-knap = value_greedy(values, weights, capacity, optimal)
-knap2 = weight_greedy(values, weights, capacity, optimal)
-ratioknap = fractional_greedy(values, weights, capacity, optimal)
+# # Executing each version
+#
+# # Value-wise
+# tic = time.time()
+# vgreedy_res, profit = value_greedy(values, weights, capacity, optimal)
+# toc = time.time()-tic
+# toc = toc*1000
+#
+# found_solution = np.array(vgreedy_res)
+# found_solution = np.array2string(found_solution, separator=',', precision=None)
+# optimal_solution = np.array2string(solution, separator=',', precision=None)
+#
+# sol_accuracy = profit/optimal
+# edit_distance = levenshtein(optimal_solution, found_solution)
+#
+# print("Execution time: %s miliseconds" % toc)
+# print("Solution accuracy: " + str(sol_accuracy*100))
+# print("Edit distance of solution: " + str(edit_distance))
+# print()
+#
+# # Weight greedy
+# tic = time.time()
+# wgreedy_res, profit = weight_greedy(values, weights, capacity, optimal)
+# toc = time.time()-tic
+# toc = toc*1000
+#
+# found_solution = np.array(wgreedy_res)
+# found_solution = np.array2string(found_solution, separator=',', precision=None)
+# optimal_solution = np.array2string(solution, separator=',', precision=None)
+#
+# sol_accuracy = profit/optimal
+# edit_distance = levenshtein(optimal_solution, found_solution)
+#
+# print("Execution time: %s miliseconds" % toc)
+# print("Solution accuracy: " + str(sol_accuracy*100))
+# print("Edit distance of solution: " + str(edit_distance))
+# print()
+#
+# Fractional greedy
+tic = time.time()
+fracgreedy_res, profit, accuracy = fractional_greedy(values, weights, capacity, optimal)
+toc = time.time()-tic
+toc = toc*1000
+
+found_solution = np.array(fracgreedy_res)
+found_solution = np.array2string(found_solution, separator=',', precision=None)
+optimal_solution = np.array2string(solution, separator=',', precision=None)
+
+sol_accuracy = profit/optimal
+edit_distance = levenshtein(optimal_solution, found_solution)
+
+print("Execution time: %s miliseconds" % toc)
+print("Solution accuracy: " + str(sol_accuracy*100))
+print("Edit distance of solution: " + str(edit_distance))
+print()
+
+

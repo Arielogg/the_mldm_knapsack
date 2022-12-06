@@ -1,3 +1,9 @@
+'''
+SIRGUEY Franck
+Script containing algorithms necessary to perform
+bruteforce approach.
+'''
+
 import time
 import numpy as np
 from extract import read_knapsack, read_optimal
@@ -79,22 +85,25 @@ def bruteforce(values, weight, capacity):
                 bestval=tempval
                 bestweight=tempweight
 
-    return bestChoice,bestweight,bestval
+    return bestChoice, bestweight, bestval
 
+###### USAGE EXAMPLE (uncomment) ######
 # Declaring item and capacity paths
-items_path = 'low-dimensional/' + 'f1_l-d_kp_10_269'
-optimal_path = 'low-dimensional-optimum/' + 'f1_l-d_kp_10_269'
-
-# Reading the values
-values, weights, capacity = read_knapsack(items_path)
-optimal = read_optimal(optimal_path)
-
-tic = time.time()
-solution, bestweight, bestval = bruteforce(values, weights, capacity)
-toc = time.time()-tic
-toc = toc*1000
-
-print("Execution time: %s miliseconds" % toc)
-print("Solution vector: \n" + str(solution))
-print("Value of the objects in the knapsack: %d €" % bestval)
-print("Optimal value: %d €" % optimal)
+#
+# filename = 'f10_l-d_kp_20_879'
+# items_path = 'low-dimensional/' + str(filename)
+# optimal_path = 'low-dimensional-optimum/' + str(filename)
+#
+# # Reading the values
+# values, weights, capacity = read_knapsack(items_path)
+# optimal = read_optimal(optimal_path)
+#
+# tic = time.time()
+# solution, bestweight, bestval = bruteforce(values, weights, capacity)
+# toc = time.time()-tic
+# toc = toc*1000
+#
+# print("Execution time: %s miliseconds" % toc)
+# print("Solution vector: \n" + str(solution))
+# print("Value of the objects in the knapsack: %d €" % bestval)
+# print("Optimal value: %d €" % optimal)

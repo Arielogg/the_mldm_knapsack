@@ -1,11 +1,14 @@
 '''
 GUERRA ADAMES Ariel
-Script containing functions with problem generators.
+Script containing functions with problem generators for the 0/1 knapsack problem.
 '''
 
 import numpy as np
+from bruteforce import bruteforce
+import matplotlib.pyplot as plt
+from extract import *
 
-def uniform_dist(size, minw=1, maxw=100, minv=10, maxv=300, capacity=200, seed=42):
+def uniform_dist(size, minw=1, maxw=100, minv=10, maxv=300, capacity=200, seed=42, calc_optimal=False):
     """Problem generator of the 0/1 knapsack problem that draws sample values and weights according
     to a uniform distribution.
 
@@ -31,9 +34,13 @@ def uniform_dist(size, minw=1, maxw=100, minv=10, maxv=300, capacity=200, seed=4
         capacity = minw + 1
     values = np.random.uniform(minv, maxv, size).round().astype(int)
     weights = np.random.uniform(minw, maxw, size).round().astype(int)
-    return values, weights, capacity
+    if calc_optimal:
+        solution, bestweight, optimal = bruteforce(values, weights, capacity)
+    else:
+        optimal = 1
+    return values, weights, capacity, optimal
 
-def normal_dist(size, mean=100, std=50, capacity=300, seed=42):
+def normal_dist(size, mean=100, std=50, capacity=300, seed=42, calc_optimal=False):
     """Problem generator of the 0/1 knapsack problem that draws sample values and weights according
     to a gaussian distribution.
 
@@ -44,7 +51,6 @@ def normal_dist(size, mean=100, std=50, capacity=300, seed=42):
     std : integer. (optional) standard deviation of the distribution.
     capacity : integer.  (optional) maximum weight the knapsack can hold.
     seed : integer.  (optional) seed to be fed to the random number generator.
-
     Returns
     -------
     values : list of item values.
@@ -59,9 +65,13 @@ def normal_dist(size, mean=100, std=50, capacity=300, seed=42):
     if min(weights) > capacity:
         print('Minimum possible weight exceeds capacity! Adjusting capacity')
         capacity = min(weights) + 1
-    return values, weights, capacity
+    if calc_optimal:
+        solution, bestweight, optimal = bruteforce(values, weights, capacity)
+    else:
+        optimal = 1
+    return values, weights, capacity, optimal
 
-def poisson_dist(size, lam=10, capacity=300, seed=42):
+def poisson_dist(size, lam=10, capacity=300, seed=42, calc_optimal=False):
     """Problem generator of the 0/1 knapsack problem that draws sample values and weights according
     to a gaussian distribution.
 
@@ -71,7 +81,6 @@ def poisson_dist(size, lam=10, capacity=300, seed=42):
     lam : integer. (optional) lambda value.
     capacity : integer.  (optional) maximum weight the knapsack can hold.
     seed : integer.  (optional) seed to be fed to the random number generator.
-
     Returns
     -------
     values : list of item values.
@@ -86,9 +95,13 @@ def poisson_dist(size, lam=10, capacity=300, seed=42):
     if min(weights) > capacity:
         print('Minimum possible weight exceeds capacity! Adjusting capacity')
         capacity = min(weights) + 1
-    return values, weights, capacity
+    if calc_optimal:
+        solution, bestweight, optimal = bruteforce(values, weights, capacity)
+    else:
+        optimal = 1
+    return values, weights, capacity, optimal
 
-def triang_dist(size, minw=1, maxw=100, modew=20, minv=10, maxv=100, modev=75, capacity=300, seed=42):
+def triang_dist(size, minw=1, maxw=100, modew=20, minv=10, maxv=100, modev=75, capacity=300, seed=42, calc_optimal=False):
     """Problem generator of the 0/1 knapsack problem that draws sample values and weights according
     to a triangular distribution over the specified intervals.
 
@@ -103,7 +116,6 @@ def triang_dist(size, minw=1, maxw=100, modew=20, minv=10, maxv=100, modev=75, c
     modev: integer. (optional) value where the peak occurs.
     capacity : integer.  (optional) maximum weight the knapsack can hold.
     seed : integer.  (optional) seed to be fed to the random number generator.
-
     Returns
     -------
     values : list of item values.
@@ -116,4 +128,43 @@ def triang_dist(size, minw=1, maxw=100, modew=20, minv=10, maxv=100, modev=75, c
         capacity = minw + 1
     values = np.random.triangular(minv, modev, maxv, size).round().astype(int)
     weights = np.random.triangular(minw, modew, maxw, size).round().astype(int)
-    return values, weights, capacity
+    if calc_optimal:
+        solution, bestweight, optimal = bruteforce(values, weights, capacity)
+    else:
+        optimal = 1
+    return values, weights, capacity, optimal
+
+
+# values, weights, capacity, optimal = uniform_dist(1000, maxw=150, calc_optimal=False)
+
+# Declaring item and capacity paths
+filename = 'f10_l-d_kp_20_879'
+items_path = 'low-dimensional/' + str(filename)
+optimal_path = 'low-dimensional-optimum/' + str(filename)
+solution_path = 'low-dimensional-solutions/' + str(filename)
+
+# Reading the values
+values, weights, capacity = read_knapsack(items_path)
+optimal = read_optimal(optimal_path)
+solution = np.loadtxt(solution_path, delimiter=',')
+
+font = {'size'   : 18}
+plt.rc('font', **font)
+
+# plt.figure()
+# plt.scatter(np.arange(0,len(values)), values, label='Profit')
+# plt.scatter(np.arange(0,len(weights)), weights, label='Weight')
+# plt.legend()
+# plt.xlabel("Item number")
+# plt.ylabel("Value/Weight")
+# # plt.grid('minor')
+# plt.show()
+
+plt.figure()
+plt.hist(values, label='Profit')
+plt.hist(weights, label='Weight')
+plt.legend()
+plt.xlabel("Value/Weight")
+plt.ylabel("Occurrences")
+# plt.grid('minor')
+plt.show()

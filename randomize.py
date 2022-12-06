@@ -1,12 +1,13 @@
 import random
 import numpy as np
 import time
+from leven import levenshtein
 from extract import read_knapsack, read_optimal
 
 #param : nombre d'itération, faire deux listes, une autre listes avec n random par exemple le premier ->4 k[4]->1
 # boucle n -> qui va faire le truc random
 
-def randomize(weight,values,capacity,iter=10000) :
+def randomize(values,weight,capacity,optimal,iter=1000) :
     """Naïve random implementation of the 0/1 knapsack problem.
     Parameters
     ----------
@@ -35,7 +36,6 @@ def randomize(weight,values,capacity,iter=10000) :
         for i in range(0,len(values)-1):  #boucle qui va parcourir tout les elem de ma liste ran
             j = ran[i]  #j sera égale a l'indice renvoyer dans la liste de random
             tempweight = tempweight + weight[j]
-
             if(tempweight<capacity) :
                 a[j] = 1  #on le met dans le sac
                 tempvalue = tempvalue+values[j]  #on ajoute la valeur de j
@@ -43,23 +43,43 @@ def randomize(weight,values,capacity,iter=10000) :
                 bestWeight = tempweight - weight[j]  #on soustrait le poids mis en trop et on l'attribue a notre poids final
                 bestValue = tempvalue  #on attribue la valeur finale
                 bestChoice = a  #bestChoice deviens a
-    return bestChoice, bestWeight, bestValue
+
+    print(bestValue, bestChoice, bestWeight, optimal)
+    accuracy = bestValue/optimal
+    print("Accuracy : ", accuracy)
+    return bestChoice, bestWeight, accuracy
 
 
-# Declaring item and capacity paths
-items_path = 'low-dimensional/' + 'f1_l-d_kp_10_269'
-optimal_path = 'low-dimensional-optimum/' + 'f1_l-d_kp_10_269'
-
-# Reading the values
-values, weights, capacity = read_knapsack(items_path)
-optimal = read_optimal(optimal_path)
-
-tic = time.time()
-solution, bestweight, bestval = randomize(weights, values, capacity, 10000)
-toc = time.time()-tic
-toc = toc*1000
-
-print("Execution time: %s miliseconds" % toc)
-print("Solution vector: \n" + str(solution))
-print("Value of the objects in the knapsack: %d €" % bestval)
-print("Optimal value: %d €" % optimal)
+# ### Usage exmaple
+#
+# #  Declaring item and capacity paths
+# filename = 'f10_l-d_kp_20_879'
+# items_path = 'low-dimensional/'+ str(filename)
+# optimal_path = 'low-dimensional-optimum/' + str(filename)
+# solution_path = 'low-dimensional-solutions/' + str(filename)
+#
+# # Reading the values
+# values, weights, capacity = read_knapsack(items_path)
+# optimal = read_optimal(optimal_path)
+# solution = np.loadtxt(solution_path, delimiter=',')
+#
+# tic = time.time()
+# rand_res, bestweight, profit = randomize(values, weights, capacity, 10000)
+# toc = time.time()-tic
+# toc = toc*1000
+#
+# ## Evaluating results
+# found_solution = np.array(rand_res)
+# found_solution = np.array2string(found_solution, separator=',', precision=None)
+# optimal_solution = np.array2string(solution, separator=',', precision=None)
+#
+# sol_accuracy = profit/optimal
+# edit_distance = levenshtein(optimal_solution, found_solution)
+#
+# print("Execution time: %s miliseconds" % toc)
+# print("Solution vector: \n" + str(rand_res))
+# print("Value of the objects in the knapsack: %d €" % profit)
+# print("Optimal value: %d €" % optimal)
+# print("Solution accuracy: " + str(sol_accuracy*100))
+# print("Edit distance of solution: " + str(edit_distance))
+# print()

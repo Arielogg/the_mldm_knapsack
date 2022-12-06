@@ -8,14 +8,11 @@ def sumcomb(a) :
     sumvalues = []
     for i in combinaison :
         sumvalues.append(sum(i))
-
-    
     return sumvalues
 
 #retourne seulement une liste de toutes les combinaisons possible
 def comb(a) :
     combinaison = sum([list(map(list, combinations(a, i))) for i in range(len(a)+1)], [])
-    
     return combinaison
 
 #retourne 1 si les listes a et b ont une valeur commune sinon 0
@@ -63,7 +60,6 @@ def BrutForce_MKP(Lv, Lw, W1, W2, optimal) :
     print(taken)
     print("val max :", Valmax)
     return Valmax
-
 
 
 # Declaring item and capacity paths

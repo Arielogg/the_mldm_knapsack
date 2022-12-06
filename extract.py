@@ -1,11 +1,11 @@
 '''
 GUERRA ADAMES Ariel
-Script containing TBD
+Script containing extraction algorithms used to
+execute experiments based on external datasets
 '''
 
 import numpy as np
 import fnmatch
-import problem_generator as pg
 import os
 
 def read_knapsack(filepath):
@@ -74,7 +74,9 @@ def read_multiknapsack(directory):
             values = np.loadtxt(directory+'/'+filename, unpack=True).astype(int)
         if fnmatch.fnmatch(directory+'/'+filename, '*w.txt'):
             weights = np.loadtxt(directory+'/'+filename, unpack=True).astype(int)
-        elif fnmatch.fnmatch(directory+'/'+filename, '*s.txt'):
+
+    for filename in os.listdir(directory):
+        if fnmatch.fnmatch(directory+'/'+filename, '*s.txt'):
             solutions = np.loadtxt(directory+'/'+filename)
             s_sack1 = solutions[:, 0]
             s_sack2 = solutions[:, 1]
@@ -84,4 +86,4 @@ def read_multiknapsack(directory):
     return capacities, values, weights, s_sack1, s_sack2, optimal_v1, optimal_v2
 
 ### Example of use of the above function
-#capacities, values, weights, s_sack1, s_sack2, optimal1, optimal2 = read_multiknapsack('multiple_knapsack/kp1')
+# capacities, values, weights, s_sack1, s_sack2, optimal1, optimal2 = read_multiknapsack('multiple_knapsack/kp1')

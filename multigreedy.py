@@ -1,12 +1,13 @@
+'''
+SIRGUEY Franck
+Script containing algorithms necessary to perform
+greedy approaches for the multiple knapsack problem.
+'''
 
-import numpy as np
-import fnmatch
-import problem_generator as pg
 import os
-
+import time
 import numpy as np
 from extract import read_multiknapsack, read_optimal
-import problem_generator as pg
 
 def b_sort(sorted_one, other_one):
     """Standard implementation of the bubble sort algorithm adapted to
@@ -51,6 +52,7 @@ def value_greedy(vals, weigh, cap:int, opt:int = 0, opt2:int=0) :
     """
 
     ### VALUE-WISE GREEDY ####
+    tic = time.time()
     in_sack_w1,in_sack_v1 = 0, 0  # Empty weight and value counters
     in_sack_w2,in_sack_v2 = 0, 0  # Empty weight and value counters
     knap_sol = np.zeros(len(vals))  # Empty solution vector
@@ -68,6 +70,7 @@ def value_greedy(vals, weigh, cap:int, opt:int = 0, opt2:int=0) :
         else :
             knap_sol[int(sorted_items[i,2])] = 0  # Weight limit reached. Nothing changed
             knap_sol2[int(sorted_items[i,2])]=0
+    exect = (time.time()-tic)*1000
     wasted_value1 = optimal1 - in_sack_v1
     wasted_value2= optimal2- in_sack_v2
 
@@ -85,6 +88,11 @@ def value_greedy(vals, weigh, cap:int, opt:int = 0, opt2:int=0) :
     print("Unprofited value of 2nd bag: %d€" % wasted_value2)
     print("One-hot coded solution for the first bag : "+str(knap_sol))
     print("One-hot coded solution for the second bag : " + str(knap_sol2))
+    accuracy1 = in_sack_v1/optimal1
+    accuracy2 = in_sack_v2/optimal2
+    accuracy_mean = (accuracy1+accuracy2)/2
+    print("Accuracy: ",accuracy_mean)
+    print("Execution time: ", exect, " ms")
     print()
     return knap_sol
 
@@ -106,6 +114,7 @@ def weight_greedy(vals, weigh, cap:int, opt:int = 0, opt2:int=0):
     knap_sol : array-like. The one-hot coded solution of the chosen items.
     """
     ### WEIGHT-WISE GREEDY ####
+    tic = time.time()
     in_sack_w1, in_sack_v1 = 0, 0 # Empty weight and value counters
     in_sack_w2, in_sack_v2 = 0, 0  # Empty weight and value counters
     knap_sol = np.zeros(len(vals))  # Empty solution vector
@@ -123,6 +132,7 @@ def weight_greedy(vals, weigh, cap:int, opt:int = 0, opt2:int=0):
         else:
             knap_sol[int(sorted_items[i, 2])] = 0  # Weight limit reached. Nothing changed
             knap_sol2[int(sorted_items[i, 2])] = 0
+    exect = (time.time()-tic)*1000
     wasted_value1 = optimal1 - in_sack_v1
     wasted_value2 = optimal2 - in_sack_v2
     #### PRINTING SOLUTIONS ###
@@ -139,7 +149,13 @@ def weight_greedy(vals, weigh, cap:int, opt:int = 0, opt2:int=0):
     print("Unprofited value of 2nd bag: %d€" % wasted_value2)
     print("One-hot coded solution for the first bag : " + str(knap_sol))
     print("One-hot coded solution for the second bag : " + str(knap_sol2))
+    accuracy1 = in_sack_v1/optimal1
+    accuracy2 = in_sack_v2/optimal2
+    accuracy_mean = (accuracy1+accuracy2)/2
+    print("Accuracy: ",accuracy_mean)
+    print("Execution time: ",exect," ms")
     print()
+
     return knap_sol
 
 def fractional_greedy(vals, weigh, cap:int, opt:int = 0,opt2:int=0):
@@ -159,6 +175,7 @@ def fractional_greedy(vals, weigh, cap:int, opt:int = 0,opt2:int=0):
     knap_sol : array-like. The one-hot coded solution of the chosen items.
     """
     ### RATIO-WISE GREEDY ####
+    tic = time.time()
     in_sack_w1, in_sack_v1 = 0, 0  # Empty weight and value counters
     in_sack_w2, in_sack_v2= 0,0
     knap_sol = np.zeros(len(vals))  # Empty solution vector
@@ -179,11 +196,10 @@ def fractional_greedy(vals, weigh, cap:int, opt:int = 0,opt2:int=0):
         else:
             knap_sol[int(sorted_items[i, 2])] = 0  # Weight limit reached. Nothing changed
             knap_sol2[int(sorted_items[i, 2])] = 0
-    wasted_value1 = optimal1 - in_sack_v1
-    wasted_value2 = optimal2 - in_sack_v2
+    exect = (time.time()-tic)*1000
 
     #### PRINTING SOLUTIONS ###
-    print("WEIGHT-ORIENTED GREEDY ALGORITHM RESULTS: ")
+    print("FRACTIONAL GREEDY ALGORITHM RESULTS: ")
     print("Was able to fit %d€ worth of stuff in the 1st bag. "
           "The optimal value was %d€" % (in_sack_v1, optimal1))
     print("Was able to fit %d€ worth of stuff in the 2nd bag. "
@@ -194,14 +210,19 @@ def fractional_greedy(vals, weigh, cap:int, opt:int = 0,opt2:int=0):
           "%d kg" % (in_sack_w2, capacities[1]))
     print("One-hot coded solution for the first bag : " + str(knap_sol))
     print("One-hot coded solution for the second bag : " + str(knap_sol2))
+    accuracy1 = in_sack_v1/optimal1
+    accuracy2 = in_sack_v2/optimal2
+    accuracy_mean = (accuracy1+accuracy2)/2
+    print("Accuracy: ",accuracy_mean)
+    print("Execution time: ",exect, " ms")
     print()
     return knap_sol
 
 # Declaring item and capacity paths
-items_path = 'multiple_knapsack/kp1'
+items_path = 'multiple_knapsack/kp6'
 # Reading the values
 capacities, values, weights, s_sack1, s_sack2, optimal1, optimal2 = read_multiknapsack(items_path)
-
+print(capacities)
 # Calling the value greedy
 knap = value_greedy(values, weights, capacities, optimal1,optimal2)
 knap2 = weight_greedy(values, weights, capacities, optimal1,optimal2)

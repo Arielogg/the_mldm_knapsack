@@ -1,7 +1,8 @@
 import numpy as np
 from extract import read_knapsack, read_optimal
 from math import *
-
+from leven import levenshtein
+import time
 
 def m(i, j, M, Lw, Lv) :
     if i == 0 or j <= 0 :        
@@ -58,36 +59,58 @@ def Poly(Sigma, Lv, Lw, W, optimal) :
     m(n, W, M, Lw, Lv2)
 
     #On reprends les bonnes valeurs de la liste de valeurs originale qui ont été sélectionnées
-    taken = taken_items(M, weights, capacity)
+    taken = taken_items(M, Lw, W)
 
-    print(taken)
     somme=0
     for i in range(len(taken)) :
         if taken[i] == 1 :
             somme += Lv[i]
 
-
     precision = somme/optimal*100
-    print("The best value is : ",M[n, W],"Value optimal : ",optimal, "précision :",precision,"%")
-    
-    return sum, M
+    print("The best value is : ", M[n, W],"Value optimal : ", optimal, "précision :", precision, "%")
+
+    return somme, M, precision
 
 
 ################################################
 #                    TEST                      #
 ################################################
 
-# Declaring item and capacity paths
-items_path = 'low-dimensional/'+'f1_l-d_kp_10_269'
-capacity_path = 'low-dimensional-optimum/'+'f1_l-d_kp_10_269'
-
-# Reading the values
-values, weights, capacity = read_knapsack(items_path)
-optimal = read_optimal(capacity_path)
-
-# Calling the value greedy
-values = list(map(int, values))
-weights = list(map(int, weights))
-
-best_value, M = Poly(0.5, values, weights, capacity, optimal)
-print(taken_items(M, weights, capacity))
+# # Declaring item and capacity paths
+# filename = 'f10_l-d_kp_20_879'
+# items_path = 'low-dimensional/' + str(filename)
+# optimal_path = 'low-dimensional-optimum/' + str(filename)
+# solution_path = 'low-dimensional-solutions/' + str(filename)
+#
+# # Reading the values
+# values, weights, capacity = read_knapsack(items_path)
+# optimal = read_optimal(optimal_path)
+# solution = np.loadtxt(solution_path, delimiter=',')
+# values = list(map(int, values))
+# weights = list(map(int, weights))
+#
+# # Executing the function
+# tic = time.time()
+# profit, M, accuracy = Poly(0.5, values, weights, capacity, optimal)
+# toc = time.time()-tic
+# toc = toc*1000
+#
+# poly_res = taken_items(M, weights, capacity)
+#
+# ## Solution quality evaluation
+# found_solution = np.array(poly_res)
+# found_solution = np.array2string(found_solution, separator='.,', precision=None)
+# optimal_solution = np.array2string(solution, separator=',', precision=None)
+#
+# print(found_solution)
+# print(optimal_solution)
+#
+# edit_distance = levenshtein(optimal_solution, found_solution)-1
+#
+# print("Execution time: %s miliseconds" % toc)
+# print("Solution vector: \n" + str(found_solution))
+# print("Value of the objects in the knapsack: %d €" % profit)
+# print("Optimal value: %d €" % optimal)
+# print("Solution accuracy: " + str(accuracy))
+# print("Edit distance of solution: " + str(edit_distance))
+# print()
