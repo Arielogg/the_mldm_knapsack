@@ -24,5 +24,5 @@ Additionally, this repository contains [files facilitating the extraction of dat
 
 ## Datasets Used for Testing
 Data used for experimenting on these algoritms was extracted from the following sources:
-- Dataset for the low-dimensional 0/1 knapsack problem: http://artemisa.unicauca.edu.co/~johnyortega/instances_01_KP/
-- Dataset for the multiple knapsack problem: https://people.sc.fsu.edu/~jburkardt/datasets/knapsack_multiple/knapsack_multiple.html
+- [Dataset for the low-dimensional 0/1 knapsack problem](http://artemisa.unicauca.edu.co/~johnyortega/instances_01_KP/)
+- [Dataset for the multiple knapsack problem](https://people.sc.fsu.edu/~jburkardt/datasets/knapsack_multiple/knapsack_multiple.html)
