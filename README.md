@@ -8,7 +8,7 @@ This repository contains the source code presented on the final project of the A
 This project aimed at implementing and exhaustively testing the performance of different popular approaches to solve the 0/1 Knapsack Problem.
 
 Algorithms or approaches implemented and tested: 
-- [Brute Force](Bruteforce.py)
+- [Brute Force](bruteforce.py)
 - [Meet in the Middle](middle.py)
 - [Backtracking](backtracking.py)
 - [Branch and Bound](BaB.py)
