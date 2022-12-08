@@ -1,3 +1,8 @@
+'''
+TRIVEDI Josh
+Script containing algorithms necessary to perform the backtracking approach.
+'''
+
 import sys
 import math
 import extract
@@ -55,16 +60,15 @@ def main():
     n = len(val)
 
     # Using the problem generator
-    i = 6
-    val, wt, W, optimal = pg.uniform_dist(i, capacity=i * 10, maxw=50, maxv=50, calc_optimal=False)  # Uniform distribution
-    print(val, wt, W, optimal)
-    n = len(val)
+    # i = 6
+    # val, wt, W, optimal = pg.uniform_dist(i, capacity=i * 10, maxw=50, maxv=50, calc_optimal=False)  # Uniform distribution
+    # print(val, wt, W, optimal)
+    # n = len(val)
 
     #Executing function and evaluating time performance
     tic = time.time()
     sol = knapsack(W, wt, val, n)
     toc = time.time() - tic
-    # toc = toc * 1000
 
     ## Evaluating results
     backtrack_res = onehot(sol, val, wt, W)

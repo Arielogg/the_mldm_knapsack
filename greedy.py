@@ -141,7 +141,6 @@ def fractional_greedy(vals, weigh, cap:int, opt:int = 1):
             knap_sol[int(sorted_items[i,2])] = 1  # Found a value for the solution. Added.
         else:
             knap_sol[int(sorted_items[i,2])] = 0  # Weight limit reached. Nothing changed
-    # wasted_value = opt - in_sack_v
 
     #### PRINTING SOLUTIONS ###
     print("FRACTIONAL GREEDY ALGORITHM RESULTS: ")
@@ -166,44 +165,44 @@ values, weights, capacity = read_knapsack(items_path)
 optimal = read_optimal(optimal_path)
 solution = np.loadtxt(solution_path, delimiter=',')
 
-# # Executing each version
-#
-# # Value-wise
-# tic = time.time()
-# vgreedy_res, profit = value_greedy(values, weights, capacity, optimal)
-# toc = time.time()-tic
-# toc = toc*1000
-#
-# found_solution = np.array(vgreedy_res)
-# found_solution = np.array2string(found_solution, separator=',', precision=None)
-# optimal_solution = np.array2string(solution, separator=',', precision=None)
-#
-# sol_accuracy = profit/optimal
-# edit_distance = levenshtein(optimal_solution, found_solution)
-#
-# print("Execution time: %s miliseconds" % toc)
-# print("Solution accuracy: " + str(sol_accuracy*100))
-# print("Edit distance of solution: " + str(edit_distance))
-# print()
-#
-# # Weight greedy
-# tic = time.time()
-# wgreedy_res, profit = weight_greedy(values, weights, capacity, optimal)
-# toc = time.time()-tic
-# toc = toc*1000
-#
-# found_solution = np.array(wgreedy_res)
-# found_solution = np.array2string(found_solution, separator=',', precision=None)
-# optimal_solution = np.array2string(solution, separator=',', precision=None)
-#
-# sol_accuracy = profit/optimal
-# edit_distance = levenshtein(optimal_solution, found_solution)
-#
-# print("Execution time: %s miliseconds" % toc)
-# print("Solution accuracy: " + str(sol_accuracy*100))
-# print("Edit distance of solution: " + str(edit_distance))
-# print()
-#
+# Executing each version
+
+# Value-wise
+tic = time.time()
+vgreedy_res, profit = value_greedy(values, weights, capacity, optimal)
+toc = time.time()-tic
+toc = toc*1000
+
+found_solution = np.array(vgreedy_res)
+found_solution = np.array2string(found_solution, separator=',', precision=None)
+optimal_solution = np.array2string(solution, separator=',', precision=None)
+
+sol_accuracy = profit/optimal
+edit_distance = levenshtein(optimal_solution, found_solution)
+
+print("Execution time: %s miliseconds" % toc)
+print("Solution accuracy: " + str(sol_accuracy*100))
+print("Edit distance of solution: " + str(edit_distance))
+print()
+
+# Weight greedy
+tic = time.time()
+wgreedy_res, profit = weight_greedy(values, weights, capacity, optimal)
+toc = time.time()-tic
+toc = toc*1000
+
+found_solution = np.array(wgreedy_res)
+found_solution = np.array2string(found_solution, separator=',', precision=None)
+optimal_solution = np.array2string(solution, separator=',', precision=None)
+
+sol_accuracy = profit/optimal
+edit_distance = levenshtein(optimal_solution, found_solution)
+
+print("Execution time: %s miliseconds" % toc)
+print("Solution accuracy: " + str(sol_accuracy*100))
+print("Edit distance of solution: " + str(edit_distance))
+print()
+
 # Fractional greedy
 tic = time.time()
 fracgreedy_res, profit, accuracy = fractional_greedy(values, weights, capacity, optimal)

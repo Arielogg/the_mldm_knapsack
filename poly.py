@@ -1,3 +1,9 @@
+'''
+MOUDJAHED Mohamed
+Script containing functions necessary to execute the
+FPTAS algorithm.
+'''
+
 import numpy as np
 from extract import read_knapsack, read_optimal
 from math import *
@@ -39,7 +45,7 @@ def taken_items(M, Lw, W):
 
 
 #La précision de votre algorithme dépendra de sigma !
-def Poly(Sigma, Lv, Lw, W, optimal) :
+def Poly(epsilon, Lv, Lw, W, optimal) :
     n = len(Lv)
     W = int(W)
 
@@ -47,7 +53,7 @@ def Poly(Sigma, Lv, Lw, W, optimal) :
     maxVal = max(Lv) 
 
     #Facteur d'ajustement
-    k = (maxVal * Sigma) / n
+    k = (maxVal * epsilon) / n
 
     #Initialisation de la matrie
     M = np.ones((n+1, W+1)).dot(-1) 

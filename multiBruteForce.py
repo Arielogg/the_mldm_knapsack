@@ -1,5 +1,12 @@
+'''
+MOUDJAHED Mohamed
+Script containing functions necessary to execute the
+multiple knapsack version of the bruteforce algorithm.
+'''
+
 from itertools import combinations
 from extract import read_multiknapsack, read_optimal
+import time
 
 # retourne une liste de toutes sommes des combinaisons
 def sumcomb(a):
@@ -97,4 +104,7 @@ capacities, values, weights, s_sack1, s_sack2, optimal1, optimal2 = read_multikn
 values = list(map(int, values))
 weights = list(map(int, weights))
 
+tic = time.time()
 knap = BrutForce_MKP(values, weights, s_sack1, s_sack2, optimal1, optimal2)
+toc = time.time() - tic
+print("Execution time: ", toc)

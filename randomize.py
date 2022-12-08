@@ -1,3 +1,9 @@
+'''
+SIRGUEY Franck
+Script containing algorithms necessary to perform
+randomized approach.
+'''
+
 import random
 import numpy as np
 import time
@@ -50,36 +56,36 @@ def randomize(values,weight,capacity,optimal,iter=1000) :
     return bestChoice, bestWeight, accuracy
 
 
-# ### Usage exmaple
-#
-# #  Declaring item and capacity paths
-# filename = 'f10_l-d_kp_20_879'
-# items_path = 'low-dimensional/'+ str(filename)
-# optimal_path = 'low-dimensional-optimum/' + str(filename)
-# solution_path = 'low-dimensional-solutions/' + str(filename)
-#
-# # Reading the values
-# values, weights, capacity = read_knapsack(items_path)
-# optimal = read_optimal(optimal_path)
-# solution = np.loadtxt(solution_path, delimiter=',')
-#
-# tic = time.time()
-# rand_res, bestweight, profit = randomize(values, weights, capacity, 10000)
-# toc = time.time()-tic
-# toc = toc*1000
-#
-# ## Evaluating results
-# found_solution = np.array(rand_res)
-# found_solution = np.array2string(found_solution, separator=',', precision=None)
-# optimal_solution = np.array2string(solution, separator=',', precision=None)
-#
-# sol_accuracy = profit/optimal
-# edit_distance = levenshtein(optimal_solution, found_solution)
-#
-# print("Execution time: %s miliseconds" % toc)
-# print("Solution vector: \n" + str(rand_res))
-# print("Value of the objects in the knapsack: %d €" % profit)
-# print("Optimal value: %d €" % optimal)
-# print("Solution accuracy: " + str(sol_accuracy*100))
-# print("Edit distance of solution: " + str(edit_distance))
-# print()
+### Usage exmaple
+
+#  Declaring item and capacity paths
+filename = 'f10_l-d_kp_20_879'
+items_path = 'low-dimensional/'+ str(filename)
+optimal_path = 'low-dimensional-optimum/' + str(filename)
+solution_path = 'low-dimensional-solutions/' + str(filename)
+
+# Reading the values
+values, weights, capacity = read_knapsack(items_path)
+optimal = read_optimal(optimal_path)
+solution = np.loadtxt(solution_path, delimiter=',')
+
+tic = time.time()
+rand_res, bestweight, profit = randomize(values, weights, capacity, 10000)
+toc = time.time()-tic
+toc = toc*1000
+
+## Evaluating results
+found_solution = np.array(rand_res)
+found_solution = np.array2string(found_solution, separator=',', precision=None)
+optimal_solution = np.array2string(solution, separator=',', precision=None)
+
+sol_accuracy = profit/optimal
+edit_distance = levenshtein(optimal_solution, found_solution)
+
+print("Execution time: %s miliseconds" % toc)
+print("Solution vector: \n" + str(rand_res))
+print("Value of the objects in the knapsack: %d €" % profit)
+print("Optimal value: %d €" % optimal)
+print("Solution accuracy: " + str(sol_accuracy*100))
+print("Edit distance of solution: " + str(edit_distance))
+print()

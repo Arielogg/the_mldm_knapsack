@@ -1,3 +1,9 @@
+'''
+MOUDJAHED Mohamed
+Script containing functions necessary to execute the
+meet in the middle algorithm.
+'''
+
 from itertools import combinations
 from extract import read_knapsack, read_optimal
 import numpy as np
@@ -62,40 +68,40 @@ def Middle(Lv, Lw, W, optimal) :
 
     return max, taken, accuracy
 
-# # Declaring item and capacity paths
-# filename = 'f10_l-d_kp_20_879'
-# items_path = 'low-dimensional/' + str(filename)
-# optimal_path = 'low-dimensional-optimum/' + str(filename)
-# solution_path = 'low-dimensional-solutions/' + str(filename)
-#
-# # Reading the values
-# values, weights, capacity = read_knapsack(items_path)
-# optimal = read_optimal(optimal_path)
-# solution = np.loadtxt(solution_path, delimiter=',')
-# values = list(map(int, values))
-# weights = list(map(int, weights))
-#
-# #  Executing functions, measuring time
-# tic = time.time()
-# profit, middle_sol = Middle(values, weights, capacity, optimal)
-# toc = time.time()-tic
-# toc = toc*1000
-#
-# ## Solution quality evaluation for the normal dynamic method
-# found_solution = np.array(middle_sol)
-# found_solution = np.array2string(found_solution, separator='.,', precision=None)
-# optimal_solution = np.array2string(solution, separator=',', precision=None)
-#
-# print(found_solution)
-# print(optimal_solution)
-#
-# edit_distance = levenshtein(optimal_solution, found_solution)-1
-#
-# print("Results for the normal dynamic approach")
-# print("Execution time: %s miliseconds" % toc)
-# print("Solution vector: \n" + str(found_solution))
-# print("Value of the objects in the knapsack: %d €" % profit)
-# print("Optimal value: %d €" % optimal)
-# print("Solution accuracy: " + str(profit/optimal * 100))
-# print("Edit distance of solution: " + str(edit_distance))
-# print()
+# Declaring item and capacity paths
+filename = 'f10_l-d_kp_20_879'
+items_path = 'low-dimensional/' + str(filename)
+optimal_path = 'low-dimensional-optimum/' + str(filename)
+solution_path = 'low-dimensional-solutions/' + str(filename)
+
+# Reading the values
+values, weights, capacity = read_knapsack(items_path)
+optimal = read_optimal(optimal_path)
+solution = np.loadtxt(solution_path, delimiter=',')
+values = list(map(int, values))
+weights = list(map(int, weights))
+
+#  Executing functions, measuring time
+tic = time.time()
+profit, middle_sol = Middle(values, weights, capacity, optimal)
+toc = time.time()-tic
+toc = toc*1000
+
+## Solution quality evaluation for the normal dynamic method
+found_solution = np.array(middle_sol)
+found_solution = np.array2string(found_solution, separator='.,', precision=None)
+optimal_solution = np.array2string(solution, separator=',', precision=None)
+
+print(found_solution)
+print(optimal_solution)
+
+edit_distance = levenshtein(optimal_solution, found_solution)-1
+
+print("Results for the normal dynamic approach")
+print("Execution time: %s miliseconds" % toc)
+print("Solution vector: \n" + str(found_solution))
+print("Value of the objects in the knapsack: %d €" % profit)
+print("Optimal value: %d €" % optimal)
+print("Solution accuracy: " + str(profit/optimal * 100))
+print("Edit distance of solution: " + str(edit_distance))
+print()

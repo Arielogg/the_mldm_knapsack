@@ -49,6 +49,7 @@ with open("low-dimensional/"+str(filename), "r") as Data:
                 weight.append(int(k[1]))
                 # values.append(int(np.round(float(k[0]))))  # In the event of decimal values
                 # weight.append(int(np.ceil(float(k[1]))))   # In the event of decimal values
+
 ## -------------------
 ## Global variables
 ## -------------------

@@ -1,9 +1,7 @@
 '''
 GUERRA ADAMES Ariel
 Script containing algorithms necessary to perform
-genetic approach. Adapted from genetic example provided by
-Satvik Tiwari in
-https://medium.com/koderunners/genetic-algorithm-part-3-knapsack-problem-b59035ddd1d6.
+genetic approach.
 '''
 
 import numpy as np
@@ -116,7 +114,7 @@ def mutation(offsprings):
             mutants[i,int_random_value] = 0
     return mutants
 
-def genetic(values, weights, capacity, optimal=1):
+def genetic(values, weights, capacity, optimal=1, solution_no=10):
     """Implementation of a genetic approach for the 0/1 knapsack problem.
     Parameters
     ----------
@@ -133,10 +131,11 @@ def genetic(values, weights, capacity, optimal=1):
                 over generations.
     max_value : int. Value of items put into the knapsack.
     """
-    solution_no = 10
+    # solution_no = 10
     num_generations = 100
     item_number = np.arange(1, len(values) + 1)
     pop_size = (solution_no, item_number.shape[0])
+    print(pop_size)
     print('Population size = {}'.format(pop_size))
     population = np.random.randint(2, size=pop_size)
     population = population.astype(int)
@@ -163,34 +162,34 @@ def genetic(values, weights, capacity, optimal=1):
     accuracy = (max_value/optimal)*100
     return solution_vector, max_value, accuracy
 
-### Uncomment to test with datasets
-# #  Declaring item and capacity paths
-# filename = 'f10_l-d_kp_20_879'
-# items_path = 'low-dimensional/' + str(filename)
-# optimal_path = 'low-dimensional-optimum/' + str(filename)
-# solution_path = 'low-dimensional-solutions/' + str(filename)
-#
-# # Reading the values
-# values, weights, capacity = read_knapsack(items_path)
-# optimal = read_optimal(optimal_path)
-# solution = np.loadtxt(solution_path, delimiter=',')
-#
-# # Executing the function
-# tic = time.time()
-# genetic_sol, fitness_history, genetic_val = genetic(values, weights, capacity, optimal)
-# toc = time.time() - tic
-# toc = toc*1000
+## Uncomment to test with datasets
+#  Declaring item and capacity paths
+filename = 'f10_l-d_kp_20_879'
+items_path = 'low-dimensional/' + str(filename)
+optimal_path = 'low-dimensional-optimum/' + str(filename)
+solution_path = 'low-dimensional-solutions/' + str(filename)
 
-# ##  Evaluating results
-# found_solution = np.array(genetic_sol[0])
-# found_solution = np.array2string(found_solution, separator='.,', precision=None)
-# optimal_solution = np.array2string(solution, separator=',', precision=None)
-#
-# sol_accuracy = genetic_val / optimal
-# edit_distance = levenshtein(optimal_solution, found_solution) - 1
-# print("Selected items: \n " + str(found_solution))
-# print('Execution time: %s miliseconds'% toc)
-# print("Value of the objects in the knapsack: %d €" % genetic_val)
-# print("Optimal value: %d €" % optimal)
-# print("Solution accuracy: " + str(sol_accuracy * 100))
-# print("Edit distance of solution: " + str(edit_distance))
+# Reading the values
+values, weights, capacity = read_knapsack(items_path)
+optimal = read_optimal(optimal_path)
+solution = np.loadtxt(solution_path, delimiter=',')
+
+# Executing the function
+tic = time.time()
+genetic_sol, fitness_history, genetic_val = genetic(values, weights, capacity, optimal)
+toc = time.time() - tic
+toc = toc*1000
+
+##  Evaluating results
+found_solution = np.array(genetic_sol[0])
+found_solution = np.array2string(found_solution, separator='.,', precision=None)
+optimal_solution = np.array2string(solution, separator=',', precision=None)
+
+sol_accuracy = genetic_val / optimal
+edit_distance = levenshtein(optimal_solution, found_solution) - 1
+print("Selected items: \n " + str(found_solution))
+print('Execution time: %s miliseconds'% toc)
+print("Value of the objects in the knapsack: %d €" % genetic_val)
+print("Optimal value: %d €" % optimal)
+print("Solution accuracy: " + str(sol_accuracy * 100))
+print("Edit distance of solution: " + str(edit_distance))

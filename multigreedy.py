@@ -218,12 +218,16 @@ def fractional_greedy(vals, weigh, cap:int, opt:int = 0,opt2:int=0):
     print()
     return knap_sol
 
+# Usage example
+
 # Declaring item and capacity paths
 items_path = 'multiple_knapsack/kp6'
+
 # Reading the values
 capacities, values, weights, s_sack1, s_sack2, optimal1, optimal2 = read_multiknapsack(items_path)
 print(capacities)
-# Calling the value greedy
+
+# Executing the functions
 knap = value_greedy(values, weights, capacities, optimal1,optimal2)
 knap2 = weight_greedy(values, weights, capacities, optimal1,optimal2)
 ratioknap = fractional_greedy(values, weights, capacities, optimal1,optimal2)

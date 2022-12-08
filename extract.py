@@ -7,6 +7,7 @@ execute experiments based on external datasets
 import numpy as np
 import fnmatch
 import os
+from scipy import stats
 
 def read_knapsack(filepath):
     """Function to extract the values of the 0/1 knapsack problem found in

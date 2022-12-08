@@ -9,7 +9,7 @@ import numpy as np
 from extract import read_knapsack, read_optimal
 
 def binaire(number):
-    """FRANCK: STP EXPLIQUE CE QUE FAIT CETTE FONCTION. PEU IMPORTE SI C'EST COURT.
+    """
     Parameters
     ----------
     sorted_one : array-like of shape (n_samples,). The feature which
@@ -31,7 +31,7 @@ def binaire(number):
 
 
 def val(bestChoice):
-    """FRANCK: CETTE FONCTION AUSSI.
+    """
     Parameters
     ----------
     sorted_one : array-like of shape (n_samples,). The feature which
@@ -87,23 +87,23 @@ def bruteforce(values, weight, capacity):
 
     return bestChoice, bestweight, bestval
 
-###### USAGE EXAMPLE (uncomment) ######
+###### USAGE EXAMPLE ######
 # Declaring item and capacity paths
-#
-# filename = 'f10_l-d_kp_20_879'
-# items_path = 'low-dimensional/' + str(filename)
-# optimal_path = 'low-dimensional-optimum/' + str(filename)
-#
-# # Reading the values
-# values, weights, capacity = read_knapsack(items_path)
-# optimal = read_optimal(optimal_path)
-#
-# tic = time.time()
-# solution, bestweight, bestval = bruteforce(values, weights, capacity)
-# toc = time.time()-tic
-# toc = toc*1000
-#
-# print("Execution time: %s miliseconds" % toc)
-# print("Solution vector: \n" + str(solution))
-# print("Value of the objects in the knapsack: %d €" % bestval)
-# print("Optimal value: %d €" % optimal)
+
+filename = 'f10_l-d_kp_20_879'
+items_path = 'low-dimensional/' + str(filename)
+optimal_path = 'low-dimensional-optimum/' + str(filename)
+
+# Reading the values
+values, weights, capacity = read_knapsack(items_path)
+optimal = read_optimal(optimal_path)
+
+tic = time.time()
+solution, bestweight, bestval = bruteforce(values, weights, capacity)
+toc = time.time()-tic
+toc = toc*1000
+
+print("Execution time: %s miliseconds" % toc)
+print("Solution vector: \n" + str(solution))
+print("Value of the objects in the knapsack: %d €" % bestval)
+print("Optimal value: %d €" % optimal)

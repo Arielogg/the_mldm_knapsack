@@ -135,36 +135,5 @@ def triang_dist(size, minw=1, maxw=100, modew=20, minv=10, maxv=100, modev=75, c
     return values, weights, capacity, optimal
 
 
+### Example of usage
 # values, weights, capacity, optimal = uniform_dist(1000, maxw=150, calc_optimal=False)
-
-# Declaring item and capacity paths
-filename = 'f10_l-d_kp_20_879'
-items_path = 'low-dimensional/' + str(filename)
-optimal_path = 'low-dimensional-optimum/' + str(filename)
-solution_path = 'low-dimensional-solutions/' + str(filename)
-
-# Reading the values
-values, weights, capacity = read_knapsack(items_path)
-optimal = read_optimal(optimal_path)
-solution = np.loadtxt(solution_path, delimiter=',')
-
-font = {'size'   : 18}
-plt.rc('font', **font)
-
-# plt.figure()
-# plt.scatter(np.arange(0,len(values)), values, label='Profit')
-# plt.scatter(np.arange(0,len(weights)), weights, label='Weight')
-# plt.legend()
-# plt.xlabel("Item number")
-# plt.ylabel("Value/Weight")
-# # plt.grid('minor')
-# plt.show()
-
-plt.figure()
-plt.hist(values, label='Profit')
-plt.hist(weights, label='Weight')
-plt.legend()
-plt.xlabel("Value/Weight")
-plt.ylabel("Occurrences")
-# plt.grid('minor')
-plt.show()
