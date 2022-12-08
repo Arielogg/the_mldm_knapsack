@@ -1,24 +1,25 @@
-# TODO: (J-8 !!!)
-### EXPERIMENTS FOR THE SINGLE 0/1 KP PROBLEM (Ariel):
+Final Project Repository - The Knapsack Problem
+============
 
-1. Average time complexity of the algorithm
-    >Execution time and theoretical time complexity of each algorithm O(.).
-  
-2. Average accuracy with respect to the optimal weight. I recommend you to calculate this as:
-    > Total value put into the knapsack by your algorithm/optimal value of the knapsack. 
-   > Found in the /low-dimensional-optimum folder).
-     
-3. Relation between the execution time and the accuracy.
-    > Calculate it as accuracy/time.
+This repository contains the source code presented on the final project of the Advanced Algorithms class, MLDM Cohort 2022-2024, Université Jean Monnet. The members of this group and contributors to this repository include Ariel Guerra-Adames, Mohamed Moudjahed, Franck Sirguey, Thomas Martinerie, and Josh Trivedi.
 
-### EXPERIMENTS FOR THE MULTIPLE KNAPSACK PROBLEM (Franck):
+---
+## Project Description
+This project aimed at implementing and exhaustively testing the performance of different popular approaches to solve the 0/1 Knapsack Problem.
 
-1. Average time complexity of the simplest algorithms (Greedy, Randomized).
-2. Find accuracy of said algos for said problem.
+Algorithms or approaches implemented and tested: 
+- [Brute Force](Bruteforce.py)
+- [Meet in the Middle](middle.py)
+- [Backtracking](backtracking.py)
+- [Branch and Bound](BaB.py)
+- [Dynamic programming](dynamic.py)
+- [Greedy](greedy.py)
+- [Genetic](genetic.py)
+- [Fully Polynomial-Time Approximation Scheme](poly.py)
+- [Randomized](randomized.py)
+- Multi-knapsack adaptations of the [brute force](multiBruteForce.py) and [greedy](multigreedy.py) approaches.
 
-### ADDITIONAL ALGOS (Mohammed, Josh):
-
-### REPORT, PRESENTATION (Ariel, Thomas):
-
-#### Dataset for the 0/1 knapsack problem: http://artemisa.unicauca.edu.co/~johnyortega/instances_01_KP/
-#### Dataset for the multiple knapsack problem: https://people.sc.fsu.edu/~jburkardt/datasets/knapsack_multiple/knapsack_multiple.html
+## Datasets Used for Testing
+Data used for experimenting on these algoritms was extracted from the following sources:
+- Dataset for the low-dimensional 0/1 knapsack problem: http://artemisa.unicauca.edu.co/~johnyortega/instances_01_KP/
+- Dataset for the multiple knapsack problem: https://people.sc.fsu.edu/~jburkardt/datasets/knapsack_multiple/knapsack_multiple.html
